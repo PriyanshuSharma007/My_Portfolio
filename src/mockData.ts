@@ -194,8 +194,8 @@ export const projects: Project[] = [
     techStack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Redis', 'LangChain', 'LangGraph', 'Docker', 'Firebase', 'AWS'],
     date: '07/2026',
     status: 'Active',
-    liveDemoUrl: 'https://github.com/PriyanshuSharma007/FresherAi',
-    sourceCodeUrl: 'https://github.com/PriyanshuSharma007/Subspace'
+    liveDemoUrl: '#',
+    sourceCodeUrl: 'https://github.com/PriyanshuSharma007/FresherAi'
   },
   {
     _id: 'p2',
@@ -205,7 +205,7 @@ export const projects: Project[] = [
     techStack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'REST API Integration'],
     date: '2025',
     status: 'Active',
-    liveDemoUrl: 'https://github.com/PriyanshuSharma007/FresherAi',
+    liveDemoUrl: '#',
     sourceCodeUrl: 'https://github.com/PriyanshuSharma007/Subspace'
   }
 ];
