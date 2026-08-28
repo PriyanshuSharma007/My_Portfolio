@@ -1,9 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import useSWR from 'swr';
-import type { Education } from '../types';
-import { API_BASE_URL } from '../config';
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const SlideAnimatedContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -40,10 +35,9 @@ const SlideAnimatedContainer: React.FC<{ children: React.ReactNode }> = ({ child
   );
 };
 
-const EducationCertifications: React.FC = () => {
-  const { data: educationData, error } = useSWR<Education[]>(`${API_BASE_URL}/api/education`, fetcher);
+import { education as educationData } from '../mockData';
 
-  if (error || !educationData) return null;
+const EducationCertifications: React.FC = () => {
 
   return (
     <section id="education" className="py-24 bg-secondary dark:bg-[#1a181c] transition-colors duration-350 relative overflow-hidden">

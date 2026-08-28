@@ -1,15 +1,8 @@
 import React from 'react';
-import useSWR from 'swr';
-import type { Profile } from '../types';
 import { User } from 'lucide-react';
-import { API_BASE_URL } from '../config';
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+import { profile } from '../mockData';
 
 const About: React.FC = () => {
-  const { data: profile, error } = useSWR<Profile>(`${API_BASE_URL}/api/profile`, fetcher);
-
-  if (error || !profile) return null;
 
   return (
     <section id="about" className="py-20 bg-secondary">

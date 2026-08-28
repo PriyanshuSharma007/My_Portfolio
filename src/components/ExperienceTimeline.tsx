@@ -1,10 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import useSWR from 'swr';
-import type { Experience } from '../types';
 import { FaBriefcase } from 'react-icons/fa';
-import { API_BASE_URL } from '../config';
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+import { experiences } from '../mockData';
 
 const ScrollAnimatedContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -44,9 +40,6 @@ const ScrollAnimatedContainer: React.FC<{ children: React.ReactNode }> = ({ chil
 };
 
 const ExperienceTimeline: React.FC = () => {
-  const { data: experiences, error } = useSWR<Experience[]>(`${API_BASE_URL}/api/experience`, fetcher);
-
-  if (error || !experiences) return null;
 
   const calculateDuration = (start: string, end?: string, isCurrent?: boolean) => {
     const startDate = new Date(start);

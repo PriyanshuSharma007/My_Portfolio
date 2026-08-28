@@ -1,10 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import useSWR from 'swr';
 import type { Project } from '../types';
 import { FaCode, FaExternalLinkAlt } from 'react-icons/fa';
-import { API_BASE_URL } from '../config';
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const ScrollAnimatedContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -137,10 +133,9 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   );
 };
 
-const ProjectGallery: React.FC = () => {
-  const { data: projects, error } = useSWR<Project[]>(`${API_BASE_URL}/api/projects`, fetcher);
+import { projects } from '../mockData';
 
-  if (error || !projects) return null;
+const ProjectGallery: React.FC = () => {
 
   return (
     <section id="projects" className="py-24 bg-primary dark:bg-[#211F24] transition-colors duration-350 relative overflow-hidden">

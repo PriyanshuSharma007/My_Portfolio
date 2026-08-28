@@ -1,13 +1,8 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import useSWR from 'swr';
-import type { Profile } from '../types';
-import { API_BASE_URL } from '../config';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import { FaLinkedinIn, FaGithub, FaEnvelope, FaDownload } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const AnimatedShape = () => {
   const mesh = useRef<any>(null!);
@@ -73,17 +68,14 @@ const Typewriter: React.FC<{ words: string[] }> = ({ words }) => {
   );
 };
 
-const Hero: React.FC = () => {
-  const { data: profile, error } = useSWR<Profile>(`${API_BASE_URL}/api/profile`, fetcher);
+import { profile } from '../mockData';
 
+const Hero: React.FC = () => {
   const roles = useMemo(() => {
-    return profile?.headline 
+    return profile.headline 
       ? profile.headline.split(',').map(r => r.trim()) 
       : ['Full Stack Developer', 'Backend Developer', 'Frontend Developer'];
-  }, [profile?.headline]);
-
-  if (error) return <div className="h-screen flex items-center justify-center">Error loading profile...</div>;
-  if (!profile) return <div className="h-screen flex items-center justify-center animate-pulse">Loading...</div>;
+  }, [profile.headline]);
 
   return (
     <section id="about" className="relative min-h-screen py-20 flex items-center justify-center overflow-hidden bg-primary dark:bg-[#211F24] transition-colors duration-350 pt-24">

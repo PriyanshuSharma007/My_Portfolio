@@ -1,9 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import useSWR from 'swr';
-import type { Skill } from '../types';
-import { API_BASE_URL } from '../config';
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const ScrollAnimatedContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -84,10 +79,9 @@ const SkillIcon: React.FC<{ name: string; iconUrl?: string }> = ({ name, iconUrl
   );
 };
 
-const SkillsGrid: React.FC = () => {
-  const { data: categories, error } = useSWR<Skill[]>(`${API_BASE_URL}/api/skills`, fetcher);
+import { skills as categories } from '../mockData';
 
-  if (error || !categories) return null;
+const SkillsGrid: React.FC = () => {
 
   // Filter components exactly matching layout sequences from screenshots
   const frontendCats = categories.filter(c => c.category === 'Frontend Dev');

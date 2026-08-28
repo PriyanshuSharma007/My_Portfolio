@@ -3,11 +3,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Mail } from 'lucide-react';
-import useSWR from 'swr';
-import type { Profile } from '../types';
-import { API_BASE_URL } from '../config';
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -17,8 +12,9 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
+import { profile } from '../mockData';
+
 const ContactForm: React.FC = () => {
-  const { data: profile } = useSWR<Profile>(`${API_BASE_URL}/api/profile`, fetcher);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -33,28 +29,13 @@ const ContactForm: React.FC = () => {
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      setIsSuccess(true);
-      reset();
-      setTimeout(() => setIsSuccess(false), 3000);
-    } catch (error) {
-      console.error('Contact submission error:', error);
-      alert('Failed to send message. Please try again later.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Simulate a successful form submission locally
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log('Local Contact Form Submission:', data);
+    setIsSuccess(true);
+    reset();
+    setTimeout(() => setIsSuccess(false), 3000);
+    setIsSubmitting(false);
   };
 
   return (
