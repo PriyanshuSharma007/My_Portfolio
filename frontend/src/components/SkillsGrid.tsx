@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import useSWR from 'swr';
-import type { SkillCategory } from '../types';
+import type { Skill } from '../types';
 import { API_BASE_URL } from '../config';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
@@ -42,7 +42,7 @@ const ScrollAnimatedContainer: React.FC<{ children: React.ReactNode }> = ({ chil
   );
 };
 
-const SkillIcon: React.FC<{ name: string; iconUrl: string }> = ({ name, iconUrl }) => {
+const SkillIcon: React.FC<{ name: string; iconUrl?: string }> = ({ name, iconUrl }) => {
   const [hovered, setHovered] = useState(false);
 
   // Fallback to devicon standard naming conventions dynamically
@@ -85,7 +85,7 @@ const SkillIcon: React.FC<{ name: string; iconUrl: string }> = ({ name, iconUrl 
 };
 
 const SkillsGrid: React.FC = () => {
-  const { data: categories, error } = useSWR<SkillCategory[]>(`${API_BASE_URL}/api/skills`, fetcher);
+  const { data: categories, error } = useSWR<Skill[]>(`${API_BASE_URL}/api/skills`, fetcher);
 
   if (error || !categories) return null;
 
